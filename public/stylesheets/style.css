@@ -1,0 +1,25 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.error-msg{
+	color: red;
+}
+
+.pull-left{
+	width: 60px;
+	--height: 60px;
+}
+
+.instaName{
+	font-size: 20px;
+}
+
+.alert-text{
+	--font-size: 20px;
+}

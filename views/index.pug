@@ -1,0 +1,25 @@
+extends layout
+
+block content 
+	.container
+		.row
+			.col-md-12
+				//p.text-center
+				if (!user)
+					h1 Добро пожаловать в Смартбот!
+					br
+					br
+					span
+						a(href="/login")
+							button.btn.btn-default(type="button") Войти
+					span
+						a(href="/register") 
+							button.btn.btn-primary(type="button") Зарегистрироваться
+				if (user)
+					h1 Вы вошли как #{user.username}
+					br
+					br
+					
+					span
+						a(href="/logout")
+							.btn.btn-default(type=button) Выйти

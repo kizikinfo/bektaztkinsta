@@ -1,0 +1,106 @@
+extends layout
+
+block content 
+	.container
+		.row
+			.col-md-12 
+				if (!ati)
+					h1 Вы вошли как #{user}
+					br
+					br
+					p Добавьте свой инстаграм аккаунт пожалуйста
+					.row
+						.col-md-3
+							form(action="/addaccount" method="post")
+								.form-group
+									input.form-control(type='text', placeholder='Инстаграм логин', name='instaLogin')
+								.form-group
+									input.form-control(type='password', placeholder='Инстаграм пароль', name='instaPassword')
+								button.btn.btn-primary(type='submit') Добавить аккаунт
+								| &nbsp;
+								span
+									a(href="/logout")
+										.btn.btn-default(type=button) Выйти
+							br
+							p.error-msg #{validate.authmsg}
+					if(validate.msg)
+						br
+						br
+						.row
+							.col-md-6
+								.alert.alert-info
+									strong.alert-text Отлично! Теперь следуйте инструкциям ниже
+								ul.list-unstyled
+									strong
+										li.list-group-item.list-group-item-warning &bull; Нажмите кнопку подтвердит ниже
+										li.list-group-item.list-group-item-warning &bull; Войдите в свой аккаунт и подтвердите что это были вы
+										li.list-group-item.list-group-item-warning &bull; Вернитесь обратно на эту страницу и повторите попытку добавления еще раз
+						.row
+							.col-md-3
+								-var inLogname=validate.loginName
+								a(href='https://instagram.com/'+inLogname, target='_blank')
+									button.btn.btn-primary Подтвердить
+				else
+					.media
+						img.pull-left(src=instaAccount.picture)
+						.media-body
+							h3.media-heading=ati
+							span Подписчики:
+								| &nbsp; 
+								span=instaAccount.followerCount
+							| &nbsp;&nbsp;&nbsp;
+							span Подписки:
+								| &nbsp; 
+								span=instaAccount.followingCount
+
+					br
+					br
+					if(!status)
+						h4 Поиск пользователей инстаграм по местоположению 
+						br
+						br
+						.row
+							.col-md-6
+								-var locationFormAction= '/profile/'+user+'/getlocation'
+								form.form-inline(action=locationFormAction id="locationForm" method="post")
+									.form-group
+										label(for=locInput) Местоположение: 
+										| &nbsp;
+										input.form-control(type='text', placeholder='Введите город', name='location' id=locInput)
+										input.form-control(type='hidden', value=ati, name='identifier')
+									| &nbsp;
+									button.btn.btn-primary(type='submit') Найти
+								br
+								p(style='color:red') #{zeroLenth}				
+						if(ar)
+							.row
+								.col-md-6
+									-var robotFormAction= '/profile/'+user+'/startrobot'
+									h4 Выберите местоположение и запустите робот
+									ul.list-group
+										for i in ar
+											-var locId = i._params.id
+											li.list-group-item
+												h4= i._params.title
+												p= i._params.subtitle
+												form(action=robotFormAction method="post")
+													.form-group
+														input(type="hidden" name="locationId" value=locId)
+														input(type="hidden" name="ident" value=ati)
+													button.btn.btn-default(type='submit') Запустить робот
+					else
+						-var changeBotFormAction= '/profile/'+user+'/changebot'
+						h3 Робот работает
+						img(src='/images/heart.gif')
+						br
+						br
+						form(action=changeBotFormAction method="get")
+							button.btn.btn-default(type='submit') Изменить параметры
+					
+					br
+					br
+					br
+					.row
+						.col-md-1
+							a(href="/logout")
+								.btn.btn-primary(type=button) Выйти
