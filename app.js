@@ -22,11 +22,11 @@ var port = process.env.PORT || '1000';
 //////////////////////////////
 // mongoose
 mongoose.connect('mongodb://teamzhakenov:erlan2010@ds111410.mlab.com:11410/teamzhakenov');
-/*Accountt.find({}, function(err, ar){
+Accountt.find({}, function(err, ar){
     if(err) console.log(err);
 	console.log(ar[0].ati);
     apii(ar[0].ati);
-});*/
+});
 /////////////////////////////
 
 

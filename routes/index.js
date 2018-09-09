@@ -8,7 +8,7 @@ var fs = require('fs');
 var crypto = require('crypto'),
     algorithm = 'aes-256-ctr',
     password = 'Gpmt38U9';
-var closeSite = false;
+var closeSite = true;
 
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
